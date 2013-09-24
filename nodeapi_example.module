@@ -33,5 +33,17 @@
  * the node's content type configuration page, in the 'Workflow' group.
  */
 function nodeapi_example_form_alter(&$form, $form_state, $form_id) {
+  if ($form_id == 'node_type_form' && isset($form['identity']['type'])) {
+    // Alter the node type's configuration form to add our setting. We don't
+    // need to worry about saving this value back to the variable, the form
+    // we're altering will do it for us.
+    $form['workflow']['nodeapi_example'] = array(
+      '#type'          => 'radios',
+      '#title'         => t('NodeAPI Example Rating'),
+      '#default_value' => variable_get('nodeapi_example_' . $form['#node_type']->type, 0),
+      '#options'       => array(0 => t('Disabled'), 1 => t('Enabled')),
+      '#description'   => t('Should this node have a rating attached to it?'),
+    );
+  }
 }
 
