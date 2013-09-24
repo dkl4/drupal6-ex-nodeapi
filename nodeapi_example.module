@@ -112,5 +112,5 @@ function nodeapi_example_nodeapi(&$node, $op, $teaser, $page) {
       }
       break;
 
-  }
-}
+  }  // switch
+}  // nodeapi_example_nodeapi
