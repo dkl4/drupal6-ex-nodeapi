@@ -1,0 +1,35 @@
+<?php
+
+/**
+ * @file
+ * This is an example outlining how a module can be used to extend existing
+ * content types.
+ *
+ * We will add the ability for each node to have a "rating", which will be a
+ * number from one to five.
+ */
+
+/**
+ * @defgroup nodeapi_example Example : NodeAPI
+ * @ingroup examples
+ * @{
+ * Modifying a node during its life-cycle. (Drupal 6)
+ *
+ * This example demonstrates 'piggy-backing' some data on the
+ * node in another database table.
+ *
+ * This example is part of the Examples for Developers Project which you can
+ * download and experiment with at http://drupal.org/project/examples
+ */
+
+/**
+ * Implements hook_form_alter().
+ *
+ * By implemting this hook, we're able to modify any form. We'll only make
+ * changes to two types : A node's content type configuration and edit forms.
+ *
+ * We need to have a way for administrators to indicate which content types
+ * should have our rating field added. This is done by inserting a checkbox in
+ * the node's content type configuration page, in the 'Workflow' group.
+ */
+
