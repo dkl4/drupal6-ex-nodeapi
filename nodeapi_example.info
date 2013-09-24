@@ -1,0 +1,5 @@
+; From Drupal 6 examples at https://drupal.org/project/examples
+name = NodeAPI examples
+description = Demonstrates how to alter existing content types.
+core = 6.x
+package = Example modules
