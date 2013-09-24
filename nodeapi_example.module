@@ -112,5 +112,17 @@ function nodeapi_example_nodeapi(&$node, $op, $teaser, $page) {
       }
       break;
 
+    // Update is called when an existing node has been changed. Here, we use a
+    // DELETE then an INSERT rather than UPDATE. The reason is that a node
+    // created before this module was installed won't already have a rating
+    // saved so there would be nothing to update.
+    case 'update':
+      if (variable_get('nodeapi_example_' . $node->type, 0)) {
+        db_query('DELETE FROM {nodeapi_example} WHERE vid = %d', $node->vid);
+        db_query('INSERT INTO {nodeapi_example} (nid, vid, rating) VALUES (%d, %d, %d)',
+                 $node->nid, $node->vid, $node->nodeapi_example_rating);
+      }
+      break;
+
   }  // switch
 }  // nodeapi_example_nodeapi
