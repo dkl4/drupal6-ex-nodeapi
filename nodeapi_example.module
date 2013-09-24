@@ -124,5 +124,12 @@ function nodeapi_example_nodeapi(&$node, $op, $teaser, $page) {
       }
       break;
 
+    // Delete is called when the node is being deleted. It gives us a chance
+    // to delete the rating too.
+    // This will delete all revisions as well.
+    case 'delete':
+      db_query('DELETE FROM {nodeapi_example} WHERE nid = %d', $node->nid);
+      break;
+
   }  // switch
 }  // nodeapi_example_nodeapi
