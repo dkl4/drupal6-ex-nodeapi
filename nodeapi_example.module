@@ -25,11 +25,13 @@
 /**
  * Implements hook_form_alter().
  *
- * By implemting this hook, we're able to modify any form. We'll only make
+ * By implementing this hook, we're able to modify any form. We'll only make
  * changes to two types : A node's content type configuration and edit forms.
  *
  * We need to have a way for administrators to indicate which content types
  * should have our rating field added. This is done by inserting a checkbox in
  * the node's content type configuration page, in the 'Workflow' group.
  */
+function nodeapi_example_form_alter(&$form, $form_state, $form_id) {
+}
 
