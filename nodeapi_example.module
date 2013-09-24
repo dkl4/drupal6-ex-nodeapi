@@ -67,3 +67,41 @@ function nodeapi_example_form_alter(&$form, $form_state, $form_id) {
   }
 }
 
+
+/**
+ * Implements hook_nodeapi().
+ *
+ * We will implement several node API operations here. This hook allows us
+ * to act on all major node operations, so we can manage our additional data
+ * appropriately.
+ */
+function nodeapi_example_nodeapi(&$node, $op, $teaser, $page) {
+  switch ($op) {
+    // When the content editing form is submitted, we need to validate the input
+    // to make sure the user made a selection, since we are requiring the rating
+    // field. We have to check that the value has been set to avoid showing an
+    // error message when a new blankd form is presented. Calling form_set_error()
+    // when the field is set but zero ensures not only that an error message is
+    // presented, but also that the user must correct the error before being able
+    // to submit the node.
+    case 'validate':
+      if (variable_get('nodeapi_example_' . $node->type, TRUE)) {
+        if (isset($node->nodeapi_example_rating) && !$node->api_example_rating) {
+          form_set_error('nodeapi_example_rating', t('You must rate this content.'));
+        }
+      }
+      break;
+
+    // Now we need to take care of loading one of the extended nodes from the
+    // database. An array containing our extra field needs to be returned.
+    // The "load" operation should return an array containing pairs of fields => values to be merged into the node object.
+    case 'load':
+      // We match against vid in order to keep up with the current revision
+      // db_result() has been removed in Drupal 7 and replaced with ->fetchField()
+      $rating = db_result(db_query('SELECT rating FROM {nodeapi_example} WHERE vid = %d', $node->vid));
+      return array('nodeapi_example_rating' => $rating);
+      break;
+
+
+  }
+}
