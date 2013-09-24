@@ -3,6 +3,9 @@
 /**
  * @file
  * Nodeapi example module's install and uninstall code.
+ *
+ * When you enable this module, this will create table 'nodeapi_example'
+ * in your Drupal database.
  */
 
 /**
