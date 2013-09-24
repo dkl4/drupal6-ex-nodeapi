@@ -1,0 +1,64 @@
+<?php
+
+/**
+ * @file
+ * Nodeapi example module's install and uninstall code.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function nodeapi_example_install() {
+  drupal_install_schema('nodeapi_example');
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function nodeapi_example_uninstall() {
+  drupal_uninstall_schema('nodeapi_example');
+}
+
+/**
+ * Implements hook_schema().
+ */
+function nodeapi_example_schema() {
+  $schema['nodeapi_example'] = array(
+    'fields' => array(
+      'id' => array(
+        'type'        => 'serial',
+        'not null'    => TRUE,
+        'description' => t('Primary Key: Unique ID.'),
+      ),
+      'nid' => array(
+        'type'        => 'int',
+        'unsigned'    => TRUE,
+        'not null'    => TRUE,
+        'default'     => 0,
+        'description' => t('Node id for the rating'),
+      ),
+      'vid' => array(
+        'type'        => 'int',
+        'unsigned'    => TRUE,
+        'not null'    => TRUE,
+        'default'     => 0,
+        'description' => t('Version id for rating'),
+      ),
+      'rating' => array(
+        'type'        => 'int',
+        'unsigned'    => TRUE,
+        'not null'    => TRUE,
+        'default'     => 0,
+        'description' => t('Rating for this node'),
+      ),
+    ),
+    'primary key' => array(id),
+  );
+  return $schema;
+}
+
+
+
+function nodeapi_example_update_1() {
+  return _system_update_utf8(array('nodeapi_example'));
+}
