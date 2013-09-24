@@ -131,5 +131,13 @@ function nodeapi_example_nodeapi(&$node, $op, $teaser, $page) {
       db_query('DELETE FROM {nodeapi_example} WHERE nid = %d', $node->nid);
       break;
 
+    // When a node revision is deleted, we need to remove the corresponding
+    // record from out table. The only way to handle revision deletion is by
+    // implementing hook_nodeapi().
+    case 'delete revision':
+      // Notice that we're matching a single revision based on the node's vid.
+      db_query('DELETE FROM {nodeapi_example} WHERE vid = %d', $node->vid);
+      break;
+
   }  // switch
 }  // nodeapi_example_nodeapi
