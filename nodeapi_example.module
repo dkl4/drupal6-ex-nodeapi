@@ -169,7 +169,36 @@ function nodeapi_example_nodeapi(&$node, $op, $teaser, $page) {
 function nodeapi_example_theme() {
   return array(
     'nodeapi_example_rating' => array(
+      // The argument of 'rating' is an argument to the theme function below.
       'arguments' => array('rating'),
     ),
   );
 }
+
+/**
+ * A custom theme function.
+ *
+ * By using this function to format our rating, themes can override this presentation
+ * if they wish. For example, they could provide a star graphic for the rating. We
+ * also wrap the default presentation in a CSS class that is prefixed by the module
+ * name. This way, style sheets can modify the output without requiring theme code.
+ */
+function theme_nodeapi_example_rating($rating) {
+  $options = array(
+    0 => t('Unrated'),
+    1 => t('Poor'),
+    2 => t('Needs Improvement'),
+    3 => t('Acceptable'),
+    4 => t('Good'),
+    5 => t('Excellent'),
+  );
+  $output  = '<div class ="nodeapi_example_rating">';
+  $output .= t('Rating: %rating', array('%rating' => $options[(int) $rating]));
+  $output .= '</div>';
+  return $output;
+}
+
+/**
+ * @} End of "defgroup nodeapi_example".
+ */
+
