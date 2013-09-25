@@ -160,3 +160,16 @@ function nodeapi_example_nodeapi(&$node, $op, $teaser, $page) {
 
   }  // switch
 }  // nodeapi_example_nodeapi
+
+/**
+ * Implements hook_theme().
+ *
+ * This lets us tell Drupal about our theme functions and their arguments.
+ */
+function nodeapi_example_theme() {
+  return array(
+    'nodeapi_example_rating' => array(
+      'arguments' => array('rating'),
+    ),
+  );
+}
