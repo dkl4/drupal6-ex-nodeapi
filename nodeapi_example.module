@@ -94,7 +94,8 @@ function nodeapi_example_nodeapi(&$node, $op, $teaser, $page) {
 
     // Now we need to take care of loading one of the extended nodes from the
     // database. An array containing our extra field needs to be returned.
-    // The "load" operation should return an array containing pairs of fields => values to be merged into the node object.
+    // The "load" operation should return an array containing pairs of
+    // fields => values to be merged into the node object.
     case 'load':
       // We match against vid in order to keep up with the current revision
       // db_result() has been removed in Drupal 7 and replaced with ->fetchField()
