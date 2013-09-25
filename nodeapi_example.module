@@ -140,5 +140,23 @@ function nodeapi_example_nodeapi(&$node, $op, $teaser, $page) {
       db_query('DELETE FROM {nodeapi_example} WHERE vid = %d', $node->vid);
       break;
 
+    // Finally, we need to take care of displaying our rating when the node is
+    // viewed. This operation is called after the node has already been prepared
+    // into HTML and filtered as necessary, so we know we are dealing with an
+    // HTML teaser and body. We will inject our additional information at the front
+    // of the node copy.
+    //
+    // Using nodeapi('view') is more appropriate than using a filter here, because
+    // filters transform user-supplied content, whereas we are extending it with
+    // additional information.
+    case 'view':
+      if (variable_get('nodeapi_example_' . $node->type, 0)) {
+        $node->content['nodeapi_example'] = array(
+          '#value'  => theme('nodeapi_example_rating', $node->nodeapi_example_rating),
+          '#weight' => -1,
+        );
+    }
+    break;
+
   }  // switch
 }  // nodeapi_example_nodeapi
